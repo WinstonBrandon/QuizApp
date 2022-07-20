@@ -10,11 +10,11 @@ class MyApp extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
-    return MyAppState();
+    return _MyAppState();
   }
 }
 
-class MyAppState extends State<MyApp> {
+class _MyAppState extends State<MyApp> {
   var _questionIndex = 0;
 
   void _answerQuestion() {
@@ -26,9 +26,18 @@ class MyAppState extends State<MyApp> {
   }
 
   var _questions = [
-    'What is your favourite song?',
-    'What is your name?',
-    'What is your profession?'
+    {
+      'questionText': 'What is your favourite song?',
+      'answer': ['Hello', 'Birthday', 'Queen']
+    },
+    {
+      'questionText': 'What is your name?',
+      'answer': ['Jameson', 'Jenny', 'Joba']
+    },
+    {
+      'questionText': 'What is your profession?',
+      'answer': ['Ahoe!', 'Deka a Mattie', 'Blissblaker', 'SnowconeFlowzone']
+    },
   ];
   @override
   Widget build(BuildContext context) {
@@ -39,8 +48,11 @@ class MyAppState extends State<MyApp> {
         ),
         body: Column(
           children: [
-            Question(_questions[_questionIndex]),
-            Answer(_answerQuestion),
+            Question(_questions[_questionIndex]['questionText'] as String),
+            ...(_questions[_questionIndex]['answer'] as List<String>)
+                .map((answer) {
+              return Answer(_answerQuestion, answer);
+            }).toList()
           ],
         ),
       ),
