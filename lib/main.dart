@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import './question.dart';
-import './answer.dart';
+import './quiz.dart';
+import './result.dart';
 
 void main() {
   runApp(MyApp());
@@ -16,8 +16,11 @@ class MyApp extends StatefulWidget {
 
 class MyAppState extends State<MyApp> {
   var _questionIndex = 0;
+  var _totalScore = 0;
 
-  void _answerQuestion() {
+  void _answerQuestion(int score) {
+    _totalScore = _totalScore + score;
+
     setState(() {
       _questionIndex = _questionIndex + 1;
     });
@@ -26,24 +29,48 @@ class MyAppState extends State<MyApp> {
   }
 
   var _questions = [
-    'What is your favourite song?',
-    'What is your name?',
-    'What is your profession?'
+    {
+      'questionText': 'What is your favourite song?',
+      'answer': [
+        {'text': 'BlackBird', 'score': 10},
+        {'text': 'Romance', 'score': 8},
+        {'text': 'Lobitoch', 'score': 6},
+        {'text': 'AiLibi', 'score': 4},
+      ]
+    },
+    {
+      'questionText': 'What is your name?',
+      'answer': [
+        {'text': 'Ruud', 'score': 10},
+        {'text': 'Jood', 'score': 6},
+        {'text': 'Blaka', 'score': 4}
+      ]
+    },
+    {
+      'questionText': 'What is your profession?',
+      'answer': [
+        {'text': 'Spartan', 'score': 10},
+        {'text': 'Soldier', 'score': 8},
+        {'text': 'Freeagent', 'score': 6},
+        {'text': 'Stylebender', 'score': 4}
+      ]
+    },
   ];
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar(
-          title: Text('My Final Quiz App'),
-        ),
-        body: Column(
-          children: [
-            Question(_questions[_questionIndex]),
-            Answer(_answerQuestion),
-          ],
-        ),
-      ),
+          appBar: AppBar(
+            title: Text('My Final Quiz App'),
+          ),
+          body: _questionIndex < _questions.length
+              ? Quiz(
+                  answerQuestion: _answerQuestion,
+                  questions: _questions,
+                  questionIndex: _questionIndex,
+                )
+              : Result(_totalScore)),
     );
   }
 }
