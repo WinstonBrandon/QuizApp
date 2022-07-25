@@ -16,8 +16,10 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   var _questionIndex = 0;
+  var _totalScore = 0;
 
-  void _answerQuestion() {
+  void _answerQuestion(int score) {
+    _totalScore = _totalScore + score;
     setState(() {
       _questionIndex = _questionIndex + 1;
     });
@@ -56,16 +58,17 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-          appBar: AppBar(
-            title: Text('My Final Quiz App'),
-          ),
-          body: _questionIndex < _questions.length
-              ? Quiz(
-                  questions: _questions,
-                  answerQuestion: _answerQuestion,
-                  questionIndex: _questionIndex,
-                )
-              : Result()),
+        appBar: AppBar(
+          title: Text('My Final Quiz App'),
+        ),
+        body: _questionIndex < _questions.length
+            ? Quiz(
+                questions: _questions,
+                answerQuestion: _answerQuestion,
+                questionIndex: _questionIndex,
+              )
+            : Result(_totalScore),
+      ),
     );
   }
 }
