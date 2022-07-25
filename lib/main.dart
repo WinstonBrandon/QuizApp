@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import './question.dart';
-import './answer.dart';
+import './quiz.dart';
+import 'result.dart';
 
 void main() {
   runApp(MyApp());
@@ -43,19 +43,16 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar(
-          title: Text('My Final Quiz App'),
-        ),
-        body: Column(
-          children: [
-            Question(_questions[_questionIndex]['questionText'] as String),
-            ...(_questions[_questionIndex]['answer'] as List<String>)
-                .map((answer) {
-              return Answer(_answerQuestion, answer);
-            }).toList()
-          ],
-        ),
-      ),
+          appBar: AppBar(
+            title: Text('My Final Quiz App'),
+          ),
+          body: _questionIndex < _questions.length
+              ? Quiz(
+                  questions: _questions,
+                  answerQuestion: _answerQuestion,
+                  questionIndex: _questionIndex,
+                )
+              : Result()),
     );
   }
 }
