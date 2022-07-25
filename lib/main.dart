@@ -28,15 +28,28 @@ class _MyAppState extends State<MyApp> {
   var _questions = [
     {
       'questionText': 'What is your favourite song?',
-      'answer': ['Hello', 'Birthday', 'Queen']
+      'answer': [
+        {'text': 'Hello', 'score': 10},
+        {'text': 'Birthday', 'score': 6},
+        {'text': 'Queen', 'score': 4}
+      ]
     },
     {
       'questionText': 'What is your name?',
-      'answer': ['Jameson', 'Jenny', 'Joba']
+      'answer': [
+        {'text': 'Jameson', 'score': 10},
+        {'text': 'Jenny', 'score': 6},
+        {'text': 'Joba', 'score': 4}
+      ]
     },
     {
       'questionText': 'What is your profession?',
-      'answer': ['Ahoe!', 'Deka a Mattie', 'Blissblaker', 'SnowconeFlowzone']
+      'answer': [
+        {'text': 'Ahoe!', 'score': 10},
+        {'text': 'Deka a Mattie', 'score': 7},
+        {'text': 'Blissblaker', 'score': 5},
+        {'text': 'SnowconeFlowzone', 'score': 3}
+      ]
     },
   ];
   @override
